@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.lzw</groupId>
+		<artifactId>LZW_DS</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.lzw</groupId>
+	<artifactId>config-server</artifactId>
+	<packaging>jar</packaging>
+
+	<name>config-Server</name>
+	<description>Demo project for Spring Boot</description>
+
+	<dependencies>
+        <!--spring cloud config server-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-server</artifactId>
+		</dependency>
+        <!--当将配置中心作为高可用集群部署时，配置中心应该注册为一个eureka client作为服务的提供者，从而高可用-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+	</dependencies>
+</project>
