@@ -24,6 +24,7 @@
         <module>config-Server</module>
         <!--<module>lzw-Common</module>-->
         <module>lzw-Gateway</module>
+        <module>lzw-common</module>
     </modules>
 
     <properties>
@@ -33,6 +34,13 @@
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
 
         <mysql.version>5.1.32</mysql.version>
+        <mybatis-plus.version>2.3</mybatis-plus.version>
+        <druid.version>1.1.10</druid.version>
+        <pinyin4j.version>2.5.1</pinyin4j.version>
+        <springfox.version>2.6.1</springfox.version>
+        <swagger.version>1.5.13</swagger.version>
+        <lzw.latest.version>1.0.0-SNAPSHOT</lzw.latest.version>
+
     </properties>
 
     <!--依赖版管理-->
@@ -50,6 +58,18 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
+            </dependency>
+            <!--mybatis-plus启动器-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!--druid连接池-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -71,6 +91,10 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 
