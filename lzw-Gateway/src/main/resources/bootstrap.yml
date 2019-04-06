@@ -1,7 +1,7 @@
 server:
   port: 8200
 
-#断路器超时时间
+#断路器超时时间 3s
 hystrix.command.fallbackcmd.execution.isolation.thread.timeoutInMilliseconds: 3000
 spring:
   application:
@@ -28,10 +28,10 @@ spring:
 
       #配置转发的路由规则  gateway支持代码配置规则，也支持配置文件配置规则
       routes:
-      - id: lzw-item
-        uri:  lb://client1    #以lb://开头（lb代表从注册中心获取服务）
+      - id: lzw-item-service
+        uri:  lb://lzw-item-service    #以lb://开头（lb代表从注册中心获取服务）
         predicates:
-        - Path=/lzw-item/**   #匹配c1开头的请求
+        - Path=/lzw-item-service/**   #匹配c1开头的请求
         filters:
         - StripPrefix=1 #去除掉前面一个前缀 就是 /c1/xzxx/xxx  去掉/c1
 
@@ -39,7 +39,7 @@ spring:
         - name: Hystrix
           args:
             name: fallbackcmd   #熔断器名称唯一
-            fallbackUri: 'forward:/hystrix_timeout?param=lzw-item'   #服务降级之后的处理
+            fallbackUri: 'forward:/hystrix_timeout?param=lzw-item-service'   #服务降级之后的处理
 
         #熔断之后的重试策略，当然重试要搭配熔断一起使用
         - name: Retry

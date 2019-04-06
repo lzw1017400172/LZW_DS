@@ -1,0 +1,19 @@
+server:
+  port: 8700
+
+spring:
+  application:
+    name: lzw-item-service
+  cloud:
+    config:
+      name: system        #name和profile确定读取的文件是 aaaa-dev.properties
+      profile: dev
+      discovery:
+        enabled: true   #从配置中心读取文件
+        service-id: config-server   #service-id获取高可用的配置中心，既然作为注册中心的client就不需要配置url了
+
+eureka:
+  client:
+      serviceUrl:
+        defaultZone: http://192.168.0.101:8000/eureka/
+
