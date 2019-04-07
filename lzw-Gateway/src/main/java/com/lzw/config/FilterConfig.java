@@ -1,8 +1,6 @@
 package com.lzw.config;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -57,10 +55,10 @@ public class FilterConfig {
      *
      *如果使用了注册中心（如：Eureka），进行控制则需要增加如下配置
      */
-    @Bean
-    public RouteDefinitionLocator discoveryClientRouteDefinitionLocator(DiscoveryClient discoveryClient) {
-        return new DiscoveryClientRouteDefinitionLocator(discoveryClient);
-    }
+//    @Bean
+//    public RouteDefinitionLocator discoveryClientRouteDefinitionLocator(DiscoveryClient discoveryClient) {
+//        return new DiscoveryClientRouteDefinitionLocator(discoveryClient);
+//    }
 
 
 
