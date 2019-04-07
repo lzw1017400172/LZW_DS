@@ -39,8 +39,10 @@
         <pinyin4j.version>2.5.1</pinyin4j.version>
         <springfox.version>2.6.1</springfox.version>
         <swagger.version>1.5.13</swagger.version>
-        <lzw.latest.version>1.0.0-SNAPSHOT</lzw.latest.version>
+        <fastjson.version>1.2.29</fastjson.version>
 
+
+        <lzw.latest.version>1.0.0-SNAPSHOT</lzw.latest.version>
     </properties>
 
     <!--依赖版管理-->
@@ -70,6 +72,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+            <!-- alibaba工具包 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

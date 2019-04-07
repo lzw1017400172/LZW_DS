@@ -34,21 +34,31 @@ public class TbBrandController extends BaseController{
     private TbBrandService tbBrandService;
 
     @ApiOperation(value = "查询全部", notes = "查询全部")
-    @PostMapping("/read/list")
-    public Object queryList(ModelMap modelMap, @RequestBody Map<String,Object> params){
-        return setSuccessModelMap(modelMap,tbBrandService.queryList(params));
-    }
-
-    @ApiOperation(value = "分页查询", notes = "分页查询")
-    @PostMapping("/read/page")
-    public Object query(ModelMap modelMap, @RequestBody Map<String,Object> params){
-        return setSuccessModelMap(modelMap,tbBrandService.query(params));
+    @GetMapping("/read/list")
+    public Object queryList(ModelMap modelMap,String nameL,
+                            String pageNum,String pageSize,String orderBy,boolean openSort,boolean asc){
+        Map<String,Object> param = new HashMap<>();
+        param.put("nameL",nameL);
+        param.put("pageNum",pageNum);
+        param.put("pageSize",pageSize);
+        param.put("orderBy",orderBy);
+        param.put("openSort",openSort);
+        param.put("asc",asc);
+        return setSuccessModelMap(modelMap,tbBrandService.queryList(param));
     }
 
     @ApiOperation(value = "分页查询", notes = "分页查询")
     @GetMapping("/read/page")
-    public Object query2(ModelMap modelMap){
-        return setSuccessModelMap(modelMap,tbBrandService.query(new HashMap<>()));
+    public Object query(ModelMap modelMap,String nameL,
+                         String pageNum,String pageSize,String orderBy,boolean openSort,boolean asc){
+        Map<String,Object> param = new HashMap<>();
+        param.put("nameL",nameL);
+        param.put("pageNum",pageNum);
+        param.put("pageSize",pageSize);
+        param.put("orderBy",orderBy);
+        param.put("openSort",openSort);
+        param.put("asc",asc);
+        return setSuccessModelMap(modelMap,tbBrandService.query(param));
     }
 
     @ApiOperation(value = "添加or更新", notes = "添加or更新")
