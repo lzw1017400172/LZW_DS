@@ -28,12 +28,12 @@ spring:
 
       #配置转发的路由规则  gateway支持代码配置规则，也支持配置文件配置规则
       routes:
-      - id: lzw-item-service
+      - id: item
         uri:  lb://lzw-item-service    #以lb://开头（lb代表从注册中心获取服务）
         predicates:
-        - Path=/lzw-item-service/**   #匹配c1开头的请求
+        - Path=/api/item/**   #匹配/api/item开头的请求
         filters:
-        - StripPrefix=1 #去除掉前面一个前缀 就是 /c1/xzxx/xxx  去掉/c1
+        - StripPrefix=2 #去除掉前面2个前缀 就是 /api/item/xxx  去掉/api/item
 
         #配置当前转发规则的熔断策略，打开断路器后forward到指定路径
         - name: Hystrix
@@ -54,5 +54,5 @@ spring:
 eureka:
   client:
       serviceUrl:
-        defaultZone: http://localhost:8000/eureka/
+        defaultZone: http://192.168.0.101:8000/eureka/
 
