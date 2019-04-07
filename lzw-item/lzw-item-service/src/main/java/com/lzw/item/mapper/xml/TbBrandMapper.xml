@@ -5,7 +5,9 @@
     <select id="selectPageByMap" resultType="com.lzw.item.pojo.TbBrand">
         SELECT * FROM tb_brand
         <where>
-
+          <if test="cm.nameL != null and cm.nameL != ''">
+              AND tb_brand.name LIKE CONCAT('%',#{cm.nameL},'%')
+          </if>
         </where>
     </select>
 </mapper>

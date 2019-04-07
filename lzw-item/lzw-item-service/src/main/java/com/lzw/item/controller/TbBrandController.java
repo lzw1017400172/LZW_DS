@@ -12,11 +12,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -45,6 +43,12 @@ public class TbBrandController extends BaseController{
     @PostMapping("/read/page")
     public Object query(ModelMap modelMap, @RequestBody Map<String,Object> params){
         return setSuccessModelMap(modelMap,tbBrandService.query(params));
+    }
+
+    @ApiOperation(value = "分页查询", notes = "分页查询")
+    @GetMapping("/read/page")
+    public Object query2(ModelMap modelMap){
+        return setSuccessModelMap(modelMap,tbBrandService.query(new HashMap<>()));
     }
 
     @ApiOperation(value = "添加or更新", notes = "添加or更新")
