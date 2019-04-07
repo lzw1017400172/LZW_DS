@@ -5,7 +5,7 @@ import com.lzw.core.base.BaseController;
 import com.lzw.core.util.Assert;
 import com.lzw.core.util.PinyinUtil;
 import com.lzw.item.pojo.TbBrand;
-import com.lzw.item.service.TbBrandService;
+import com.lzw.item.service.ITbBrandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -31,19 +31,13 @@ import java.util.Map;
 public class TbBrandController extends BaseController{
 
     @Autowired
-    private TbBrandService tbBrandService;
+    private ITbBrandService tbBrandService;
 
     @ApiOperation(value = "查询全部", notes = "查询全部")
     @GetMapping("/read/list")
-    public Object queryList(ModelMap modelMap,String nameL,
-                            String pageNum,String pageSize,String orderBy,boolean openSort,boolean asc){
+    public Object queryList(ModelMap modelMap,String nameL){
         Map<String,Object> param = new HashMap<>();
         param.put("nameL",nameL);
-        param.put("pageNum",pageNum);
-        param.put("pageSize",pageSize);
-        param.put("orderBy",orderBy);
-        param.put("openSort",openSort);
-        param.put("asc",asc);
         return setSuccessModelMap(modelMap,tbBrandService.queryList(param));
     }
 
@@ -68,7 +62,7 @@ public class TbBrandController extends BaseController{
             Assert.length(tbBrand.getName(),1,50,"NAME");
             String initial = PinyinUtil.getPinYinHeadUperChar(tbBrand.getName());
             tbBrand.setLetter(initial.substring(0,1));
-            tbBrandService.insert(tbBrand);
+            tbBrandService.insertBrandAndCategory(tbBrand);
         } else {
             if(StringUtils.isNotBlank(tbBrand.getName())){
                 String initial = PinyinUtil.getPinYinHeadUperChar(tbBrand.getName());
@@ -76,7 +70,7 @@ public class TbBrandController extends BaseController{
             } else {
                 tbBrand.setLetter(null);
             }
-            tbBrandService.update(tbBrand);
+            tbBrandService.updateBrandAndCategory(tbBrand);
         }
         return setSuccessModelMap(modelMap,tbBrand);
     }

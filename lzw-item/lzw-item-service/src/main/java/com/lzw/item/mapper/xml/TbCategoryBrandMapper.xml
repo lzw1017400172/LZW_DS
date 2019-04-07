@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzw.item.mapper.TbCategoryBrandMapper">
+
+
+
+	<select id="selectPageByMap" resultType="com.lzw.item.pojo.TbCategoryBrand">
+		select * from tb_category_brand
+		<where>
+			<if test="cm.keyword != null and cm.keyword != ''">
+				and (
+					or category_id like CONCAT('%',#{cm.keyword},'%')
+					or brand_id like CONCAT('%',#{cm.keyword},'%')
+				)
+			</if>
+        </where>
+	</select>
+
+	<select id="selectCids" resultType="java.lang.Long">
+		select category_id from tb_category_brand
+		<where>
+			<if test="cm.brandId != null and cm.brandId != ''">
+				and brand_id = #{cm.brandId}
+			</if>
+		</where>
+	</select>
+</mapper>

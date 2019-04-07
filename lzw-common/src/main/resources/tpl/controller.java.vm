@@ -1,0 +1,79 @@
+package ${package.Controller};
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+
+/**
+ * <p>
+ * ${table.comment}  前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Controller
+@RequestMapping("/${table.entityPath}")
+@Api(value = "${table.comment}", description = "${table.comment}")
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass} {
+#else
+public class ${table.controllerName} {
+#end
+
+	@Autowired
+	private I${entity}Service ${table.entityPath}Service;
+
+	@ApiOperation(value = "查询${table.comment}")
+	@GetMapping(value = "/read/list")
+	public Object list(ModelMap modelMap) {
+        Map<String,Object> param = new HashMap<>();
+        //
+        return setSuccessModelMap(modelMap,${table.entityPath}Service.queryList(param));
+	}
+	
+	@ApiOperation(value = "分页${table.comment}")
+	@GetMapping(value = "/read/page")
+	public Object query(ModelMap modelMap,
+        String pageNum,String pageSize,String orderBy,boolean openSort,boolean asc) {
+        Map<String,Object> param = new HashMap<>();
+        //
+        param.put("pageNum",pageNum);
+        param.put("pageSize",pageSize);
+        param.put("orderBy",orderBy);
+        param.put("openSort",openSort);
+        param.put("asc",asc);
+        return setSuccessModelMap(modelMap,${table.entityPath}Service.query(param));
+	}
+	
+	@ApiOperation(value = "${table.comment}详情")
+	@PostMapping(value = "/read/detail/{id}")
+	public Object get(ModelMap modelMap,@PathVariable("id") Long id) {
+        return setSuccessModelMap(modelMap,${table.entityPath}Service.queryById(id));
+	}
+
+	@PostMapping
+	@ApiOperation(value = "修改${table.comment}")
+	public Object update(ModelMap modelMap, @RequestBody ${entity} param) {
+		return null;
+	}
+
+	@DeleteMapping
+	@ApiOperation(value = "删除${table.comment}")
+	public Object delete(ModelMap modelMap, @RequestBody ${entity} param) {
+		return null;
+	}
+}
