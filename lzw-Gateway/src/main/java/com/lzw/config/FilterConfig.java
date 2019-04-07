@@ -1,16 +1,12 @@
 package com.lzw.config;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.reactive.CorsUtils;
-import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
@@ -24,15 +20,20 @@ public class FilterConfig {
     @Value("${glOrigin}")
     private String glOrigin;
 
+
+
+
     /**
+     * 此种过滤器，是直接修改springmvc内置对象CorsFilter。全局有效
      * cors跨域资源共享。
+     * 解决了ajax跨域问题，也防止了csrf伪造站点请求。不需要单独csrfFilter去验证 请求的源了，cors也是验证请求的源，并且还支持ajax跨域
      * @return
      */
-    @Bean
-    public CorsFilter corsFilter(){
-        //1.添加CORS配置信息
-        CorsConfiguration config = new CorsConfiguration();
-        //放行哪些原始域
+//    @Bean
+//    public CorsFilter corsFilter(){
+//        //1.添加CORS配置信息
+//        CorsConfiguration config = new CorsConfiguration();
+//        //放行哪些原始域
 //        if(glOrigin != null){
 //            String[] gloArry = glOrigin.split(",");
 //            if(gloArry.length > 0){
@@ -41,32 +42,31 @@ public class FilterConfig {
 //                }
 //            }
 //        }
-        config.addAllowedOrigin("http://manage.lzw.com");
-        //是否发送Cookie信息
-        config.setAllowCredentials(true);
-        //放行哪些原始域(请求方式)
-        config.addAllowedMethod("OPTIONS");
-        config.addAllowedMethod("HEAD");
-        config.addAllowedMethod("GET");
-        config.addAllowedMethod("PUT");
-        config.addAllowedMethod("POST");
-        config.addAllowedMethod("DELETE");
-        config.addAllowedMethod("PATCH");
-        //放行哪些原始域(头部信息)
-        config.addAllowedHeader("*");
-        //暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）
-        //config.addExposedHeader("*");
-        //2.添加映射路径
-        UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();
-        configSource.registerCorsConfiguration("/**", config);
-
-        //设置filter的级别
-        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(configSource));
-        bean.setOrder(0);
-
-        //3.返回新的CorsFilter.
-        return new CorsFilter(configSource);
-    }
+//        //是否发送Cookie信息
+//        config.setAllowCredentials(true);
+//        //放行哪些原始域(请求方式)
+//        config.addAllowedMethod("OPTIONS");
+//        config.addAllowedMethod("HEAD");
+//        config.addAllowedMethod("GET");
+//        config.addAllowedMethod("PUT");
+//        config.addAllowedMethod("POST");
+//        config.addAllowedMethod("DELETE");
+//        config.addAllowedMethod("PATCH");
+//        //放行哪些原始域(头部信息)
+//        config.addAllowedHeader("*");
+//        //暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）
+//        //config.addExposedHeader("*");
+//        //2.添加映射路径
+//        UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();
+//        configSource.registerCorsConfiguration("/**", config);
+//
+//        //设置filter的级别
+//        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(configSource));
+//        bean.setOrder(0);
+//
+//        //3.返回新的CorsFilter.
+//        return new CorsFilter(configSource);
+//    }
 
     /**
      * 这种过滤器的方式，和web.xml中直接管理一个filter一样，关联一个filter类，直接filter在web容器中的
