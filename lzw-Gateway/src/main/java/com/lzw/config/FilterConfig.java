@@ -26,7 +26,7 @@ public class FilterConfig {
     //这里为支持的请求头，如果有自定义的header字段请自己添加（不知道为什么不能使用*）
     private static final String ALLOWED_HEADERS = "x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN,token,username,client";
     private static final String ALLOWED_METHODS = "*";
-    private static final String ALLOWED_ORIGIN = "http://manage.lzw.com";
+    private static final String ALLOWED_ORIGIN = "http://manage.lzw.com:9001";
     private static final String ALLOWED_Expose = "*";
     private static final String MAX_AGE = "18000L";
 
