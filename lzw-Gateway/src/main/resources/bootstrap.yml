@@ -19,12 +19,12 @@ spring:
           enabled: true     #开启服务注册和发现功能，因为作为了eureka client，请求转发时不再是转发到url,而是通过eureka clinet进行负载均衡转发到集群
           lower-case-service-id: true  #将请求路径上的服务名配置为小写
 
-      #gateway配置cors跨域资源共享
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins: "http://manage.lzw.com"
-            allowedMethods: "*"
+#      #gateway配置cors跨域资源共享
+#      globalcors:
+#        corsConfigurations:
+#          '[/**]':
+#            allowedOrigins: "http://manage.lzw.com"
+#            allowedMethods: "*"
 
       #配置转发的路由规则  gateway支持代码配置规则，也支持配置文件配置规则
       routes:
