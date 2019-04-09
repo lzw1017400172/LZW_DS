@@ -22,9 +22,9 @@
     <modules>
         <module>eureka-Server</module>
         <module>config-Server</module>
-        <!--<module>lzw-Common</module>-->
         <module>lzw-Gateway</module>
         <module>lzw-common</module>
+        <module>lzw-upload</module>
     </modules>
 
     <properties>
@@ -40,7 +40,7 @@
         <springfox.version>2.6.1</springfox.version>
         <swagger.version>1.5.13</swagger.version>
         <fastjson.version>1.2.29</fastjson.version>
-
+        <fastDFS.client.version>1.26.2</fastDFS.client.version>
 
         <lzw.latest.version>1.0.0-SNAPSHOT</lzw.latest.version>
     </properties>
@@ -78,6 +78,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.tobato</groupId>
+                <artifactId>fastdfs-client</artifactId>
+                <version>${fastDFS.client.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
