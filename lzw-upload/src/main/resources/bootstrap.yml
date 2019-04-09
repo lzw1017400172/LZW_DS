@@ -1,0 +1,36 @@
+server:
+  port: 8300
+
+spring:
+  application:
+    name: lzw-upload
+  cloud:
+    config:   #配置连接注册中心
+      name: system        #name和profile确定读取的文件是 config-test1.properties
+      profile: dev
+      discovery:
+        enabled: true   #从配置中心读取文件
+        service-id: config-server   #service-id获取高可用的配置中心，既然作为注册中心的client就不需要配置url了
+
+eureka:
+  client:
+      serviceUrl:
+        defaultZone: http://192.168.0.102:8000/eureka/
+
+#FastDFS
+fdfs:
+  so-timeout: 2500
+  connect-timeout: 600
+  thumb-image: #缩略图
+    width: 60
+    height: 60
+  tracker-list:   #tracker地址列表，负载均衡获取路由，tracker是路由服务器，多个路由服务器保证高可用，高并发
+    - 192.168.0.101：22122
+
+lzw:
+  upload:
+    allowTypes:
+      - image/jpeg
+      - image/png
+      - image/bmp
+    baseUrl: http://image.leyou.com/

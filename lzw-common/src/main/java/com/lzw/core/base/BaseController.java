@@ -1,16 +1,26 @@
 package com.lzw.core.base;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.lzw.core.Constants;
+import com.lzw.core.exception.BaseException;
+import com.lzw.core.exception.IllegalParameterException;
 import com.lzw.core.util.HttpCode;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * 控制器基类
@@ -102,17 +112,32 @@ public abstract class BaseController {
 
     /**
      * 统一异常处理
+     * @ExceptionHandlerz作用于当前控制器
+     * 做为base类，对所有控制器有效，这是实现全局异常处理的一种方式
+     * 另一种方式通过全局的注解来实现
      */
-//    @ExceptionHandler(Exception.class)
-//    public void exceptionHandler(HttpServletRequest request, HttpServletResponse response, Exception ex) throws Exception{
-//        ModelMap modelMap = new ModelMap();
-//        modelMap.put("httpCode",500);
-//        modelMap.put("msg","系统走神了,请稍候再试." );
-//        modelMap.put("timestamp", System.currentTimeMillis());
-//        response.setContentType("application/json;charset=UTF-8");
-//        byte[] bytes = JSON.toJSONBytes(modelMap, SerializerFeature.DisableCircularReferenceDetect);
-//        response.getOutputStream().write(bytes);
-//    }
+    @ExceptionHandler(Exception.class)
+    public void exceptionHandler(HttpServletRequest request, HttpServletResponse response, Exception ex) throws Exception{
+        logger.error(Constants.Exception_Head, ex);
+        ModelMap modelMap = new ModelMap();
+        if (ex instanceof BaseException) {
+            ((BaseException) ex).handler(modelMap);
+        } else if (ex instanceof IllegalArgumentException) {
+            new IllegalParameterException(ex.getMessage()).handler(modelMap);
+//        } else if (ex instanceof UnauthorizedException) {
+//            modelMap.put("httpCode", HttpCode.FORBIDDEN.value());
+//            modelMap.put("msg", StringUtils.defaultIfBlank(ex.getMessage(), HttpCode.FORBIDDEN.msg()));
+        } else {
+            modelMap.put("httpCode", HttpCode.INTERNAL_SERVER_ERROR.value());
+            String msg = StringUtils.defaultIfBlank(ex.getMessage(), HttpCode.INTERNAL_SERVER_ERROR.msg());
+            modelMap.put("msg", msg.length() > 100 ? "系统走神了,请稍候再试." : msg);
+        }
+        response.setContentType("application/json;charset=UTF-8");
+        modelMap.put("timestamp", System.currentTimeMillis());
+        logger.info(JSON.toJSON(modelMap));
+        byte[] bytes = JSON.toJSONBytes(modelMap, SerializerFeature.DisableCircularReferenceDetect);
+        response.getOutputStream().write(bytes);
+    }
 
 
 }

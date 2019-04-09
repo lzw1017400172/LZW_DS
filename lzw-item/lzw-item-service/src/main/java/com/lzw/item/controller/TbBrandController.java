@@ -5,7 +5,7 @@ import com.lzw.core.base.BaseController;
 import com.lzw.core.util.Assert;
 import com.lzw.core.util.PinyinUtil;
 import com.lzw.item.pojo.TbBrand;
-import com.lzw.item.service.TbBrandService;
+import com.lzw.item.service.ITbBrandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -31,24 +31,28 @@ import java.util.Map;
 public class TbBrandController extends BaseController{
 
     @Autowired
-    private TbBrandService tbBrandService;
+    private ITbBrandService tbBrandService;
 
     @ApiOperation(value = "查询全部", notes = "查询全部")
-    @PostMapping("/read/list")
-    public Object queryList(ModelMap modelMap, @RequestBody Map<String,Object> params){
-        return setSuccessModelMap(modelMap,tbBrandService.queryList(params));
-    }
-
-    @ApiOperation(value = "分页查询", notes = "分页查询")
-    @PostMapping("/read/page")
-    public Object query(ModelMap modelMap, @RequestBody Map<String,Object> params){
-        return setSuccessModelMap(modelMap,tbBrandService.query(params));
+    @GetMapping("/read/list")
+    public Object queryList(ModelMap modelMap,String nameL){
+        Map<String,Object> param = new HashMap<>();
+        param.put("nameL",nameL);
+        return setSuccessModelMap(modelMap,tbBrandService.queryList(param));
     }
 
     @ApiOperation(value = "分页查询", notes = "分页查询")
     @GetMapping("/read/page")
-    public Object query2(ModelMap modelMap){
-        return setSuccessModelMap(modelMap,tbBrandService.query(new HashMap<>()));
+    public Object query(ModelMap modelMap,String nameL,
+                         String pageNum,String pageSize,String orderBy,boolean openSort,boolean asc){
+        Map<String,Object> param = new HashMap<>();
+        param.put("nameL",nameL);
+        param.put("pageNum",pageNum);
+        param.put("pageSize",pageSize);
+        param.put("orderBy",orderBy);
+        param.put("openSort",openSort);
+        param.put("asc",asc);
+        return setSuccessModelMap(modelMap,tbBrandService.query(param));
     }
 
     @ApiOperation(value = "添加or更新", notes = "添加or更新")
@@ -58,7 +62,7 @@ public class TbBrandController extends BaseController{
             Assert.length(tbBrand.getName(),1,50,"NAME");
             String initial = PinyinUtil.getPinYinHeadUperChar(tbBrand.getName());
             tbBrand.setLetter(initial.substring(0,1));
-            tbBrandService.insert(tbBrand);
+            tbBrandService.insertBrandAndCategory(tbBrand);
         } else {
             if(StringUtils.isNotBlank(tbBrand.getName())){
                 String initial = PinyinUtil.getPinYinHeadUperChar(tbBrand.getName());
@@ -66,7 +70,7 @@ public class TbBrandController extends BaseController{
             } else {
                 tbBrand.setLetter(null);
             }
-            tbBrandService.update(tbBrand);
+            tbBrandService.updateBrandAndCategory(tbBrand);
         }
         return setSuccessModelMap(modelMap,tbBrand);
     }

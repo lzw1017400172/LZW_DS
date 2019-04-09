@@ -104,6 +104,12 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
+    public List<T> selectList(T record) {
+        Wrapper<T> wrapper = new EntityWrapper<>(record);
+        return mapper.selectList(wrapper);
+    }
+
+    @Override
     public Page<T> query(Map<String, Object> params) {
         Page<T> page = getPage(params);
         page.setRecords(mapper.selectPageByMap(page, params));

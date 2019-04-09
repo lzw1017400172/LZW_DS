@@ -1,5 +1,6 @@
 package com.lzw.item.pojo;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Data;
@@ -39,4 +40,6 @@ public class TbBrand implements Serializable {
      */
     private String letter;
 
+    @TableField(exist = false)
+    private String cids;
 }

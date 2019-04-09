@@ -1,4 +1,4 @@
-package com.lzw.core.config;
+package com.lzw.item.core.config;
 
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -19,4 +19,5 @@ public class MybatisPlusConfig {
         page.setDialectType("mysql");
         return page;
     }
+
 }

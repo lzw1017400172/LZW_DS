@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzw.item.mapper.TbCategoryMapper">
+
+
+
+	<select id="selectPageByMap" resultType="com.lzw.item.pojo.TbCategory">
+		select * from tb_category
+		<where>
+			<if test="cm.parentId != null">
+				and tb_category.parent_id = #{cm.parentId}
+			</if>
+			<if test="cm.keyword != null and cm.keyword != ''">
+				and (
+					or id like CONCAT('%',#{cm.keyword},'%')
+					or name like CONCAT('%',#{cm.keyword},'%')
+					or parent_id like CONCAT('%',#{cm.keyword},'%')
+					or is_parent like CONCAT('%',#{cm.keyword},'%')
+					or sort like CONCAT('%',#{cm.keyword},'%')
+				)
+			</if>
+        </where>
+	</select>
+
+	<select id="selectByBrandId" resultType="com.lzw.item.pojo.TbCategory">
+		SELECT tc.* FROM `tb_category_brand` tcb LEFT JOIN `tb_category` tc ON tcb.category_id = tc.id
+		WHERE tcb.brand_id = #{bid}
+	</select>
+</mapper>

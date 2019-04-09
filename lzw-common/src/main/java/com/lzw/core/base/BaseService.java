@@ -57,6 +57,13 @@ public interface BaseService<T> {
     List<T> queryList(Map<String,Object> param);
 
     /**
+     * 查询集合
+     * @param record
+     * @return
+     */
+    List<T> selectList(T record);
+
+    /**
      * 分页查询
      * @param param
      * @return
