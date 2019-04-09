@@ -1,4 +1,4 @@
-package com.lzw.core.config;
+package com.lzw.config;
 
 import com.github.tobato.fastdfs.FdfsClientConfig;
 import org.springframework.context.annotation.Configuration;
