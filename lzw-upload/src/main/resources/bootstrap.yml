@@ -24,8 +24,8 @@ fdfs:
   thumb-image: #缩略图
     width: 60
     height: 60
-  tracker-list:   #tracker地址列表，负载均衡获取路由，tracker是路由服务器，多个路由服务器保证高可用，高并发
-    - 192.168.0.101：22122
+  tracker-list:
+    - 192.168.0.101:22122
 
 lzw:
   upload:

@@ -2,7 +2,7 @@ package com.lzw.service.impl;
 
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
-import com.lzw.core.config.UploadProperties;
+import com.lzw.config.UploadProperties;
 import com.lzw.core.exception.FtpException;
 import com.lzw.service.IUploadService;
 import lombok.extern.slf4j.Slf4j;
