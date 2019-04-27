@@ -33,4 +33,4 @@ lzw:
       - image/jpeg
       - image/png
       - image/bmp
-    baseUrl: http://image.leyou.com/
+    baseUrl: http://view.lzw.com:8080/
