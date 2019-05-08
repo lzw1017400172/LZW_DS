@@ -48,8 +48,12 @@ spring:
             status: 404 #重试response code.默认无
             statusSeries: 500
             method: GET #重试的请求，默认GET
-
-
+      - id: upload
+        uri:  lb://lzw-upload    #以lb://开头（lb代表从注册中心获取服务）
+        predicates:
+        - Path=/api/upload/**   #匹配/api/item开头的请求
+        filters:
+        - StripPrefix=1 #去除掉前面2个前缀 就是 /api/item/xxx  去掉/api/item
 
 eureka:
   client:
