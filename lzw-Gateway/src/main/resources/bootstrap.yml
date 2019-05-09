@@ -58,5 +58,8 @@ spring:
 eureka:
   client:
       serviceUrl:
-        defaultZone: http://192.168.0.102:8000/eureka/
+        defaultZone: http://172.17.0.2:8000/eureka/
 
+  instance:
+    # 注册时使用ip而不是主机名
+    prefer-ip-address: true
