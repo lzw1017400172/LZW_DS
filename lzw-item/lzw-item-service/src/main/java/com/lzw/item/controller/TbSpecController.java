@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,10 +36,9 @@ public class TbSpecController extends BaseController {
 	@Autowired
 	private ITbSpecificationService tbSpecificationService;
 
-	@ApiOperation(value = "")
+	@ApiOperation(value = "s")
 	@GetMapping(value = "/groups/{cid}")
 	public Object groups(ModelMap modelMap,@PathVariable("cid") Long cid) {
-        Map<String,Object> param = new HashMap<>();
 		TbSpecification tbSpecification = new TbSpecification();
 		tbSpecification.setCategoryId(cid);
 		tbSpecification = tbSpecificationService.selectOne(tbSpecification);
@@ -47,6 +47,20 @@ public class TbSpecController extends BaseController {
 			list = JSONObject.parseArray(tbSpecification.getSpecifications(),SpecGroup.class);
 		}
         return setSuccessModelMap(modelMap,list);
+	}
+
+	@ApiOperation(value = "查看规格属性params")
+	@GetMapping(value = "/params/{cid}")
+	public Object params(ModelMap modelMap,@PathVariable("cid") Long cid) {
+		TbSpecification tbSpecification = new TbSpecification();
+		tbSpecification.setCategoryId(cid);
+		tbSpecification = tbSpecificationService.selectOne(tbSpecification);
+		if(tbSpecification != null){
+			return setSuccessModelMap(modelMap,tbSpecification.getSpecifications());
+		} else {
+			return setSuccessModelMap(modelMap,"[]" +
+					"");
+		}
 	}
 	
 //	@ApiOperation(value = "查询分类，根据品牌id")

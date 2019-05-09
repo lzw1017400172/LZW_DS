@@ -2,6 +2,7 @@ package com.lzw.item.service.impl;
 
 
 import com.lzw.core.base.BaseServiceImpl;
+import com.lzw.item.mapper.TbBrandMapper;
 import com.lzw.item.pojo.TbBrand;
 import com.lzw.item.pojo.TbCategoryBrand;
 import com.lzw.item.service.ITbBrandService;
@@ -57,6 +58,11 @@ public class TbBrandServiceImpl extends BaseServiceImpl<TbBrand> implements ITbB
                 }
             }
         }
+    }
+
+    @Override
+    public List<TbBrand> selectByCid(Long cid) {
+        return ((TbBrandMapper)mapper).selectByCid(cid);
     }
 
     private List<TbCategoryBrand> handlerCBs(TbBrand tbBrand){

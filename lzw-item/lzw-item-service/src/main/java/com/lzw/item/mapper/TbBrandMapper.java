@@ -1,7 +1,10 @@
 package com.lzw.item.mapper;
 
-import com.lzw.item.pojo.TbBrand;
 import com.lzw.core.base.BaseMapper;
+import com.lzw.item.pojo.TbBrand;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.lzw.core.base.BaseMapper;
  */
 public interface TbBrandMapper extends BaseMapper<TbBrand> {
 
+    List<TbBrand> selectByCid(@Param("cid") Long cid);
 }

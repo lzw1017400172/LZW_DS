@@ -10,4 +10,8 @@
           </if>
         </where>
     </select>
+
+    <select id="selectByCid" resultType="com.lzw.item.pojo.TbBrand">
+        select tb.* from tb_category_brand tcb INNER JOIN tb_brand tb on tcb.brand_id = tb.id where tcb.category_id = #{cid}
+    </select>
 </mapper>

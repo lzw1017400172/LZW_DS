@@ -6,6 +6,7 @@ import com.lzw.core.util.Assert;
 import com.lzw.core.util.PinyinUtil;
 import com.lzw.item.pojo.TbBrand;
 import com.lzw.item.service.ITbBrandService;
+import com.lzw.item.service.ITbCategoryBrandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -32,6 +33,8 @@ public class TbBrandController extends BaseController{
 
     @Autowired
     private ITbBrandService tbBrandService;
+    @Autowired
+    private ITbCategoryBrandService tbCategoryBrandService;
 
     @ApiOperation(value = "查询全部", notes = "查询全部")
     @GetMapping("/read/list")
@@ -39,6 +42,12 @@ public class TbBrandController extends BaseController{
         Map<String,Object> param = new HashMap<>();
         param.put("nameL",nameL);
         return setSuccessModelMap(modelMap,tbBrandService.queryList(param));
+    }
+
+    @ApiOperation(value = "cid", notes = "cid")
+    @GetMapping("/cid/{cid}")
+    public Object cid(ModelMap modelMap,@PathVariable("cid") Long cid){
+        return setSuccessModelMap(modelMap,tbBrandService.selectByCid(cid));
     }
 
     @ApiOperation(value = "分页查询", notes = "分页查询")

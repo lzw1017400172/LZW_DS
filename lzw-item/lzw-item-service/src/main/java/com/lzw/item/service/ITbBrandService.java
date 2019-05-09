@@ -3,6 +3,8 @@ package com.lzw.item.service;
 import com.lzw.core.base.BaseService;
 import com.lzw.item.pojo.TbBrand;
 
+import java.util.List;
+
 /**
  * <p>
  * 品牌表，一个品牌下有多个商品（spu），一对多关系 服务类
@@ -25,4 +27,10 @@ public interface ITbBrandService extends BaseService<TbBrand> {
      */
     void updateBrandAndCategory(TbBrand tbBrand);
 
+    /**
+     * 根据分类id查询品牌
+     * @param cid
+     * @return
+     */
+    List<TbBrand> selectByCid(Long cid);
 }
