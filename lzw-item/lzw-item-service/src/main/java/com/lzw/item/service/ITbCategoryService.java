@@ -16,4 +16,6 @@ import java.util.Map;
 public interface ITbCategoryService extends BaseService<TbCategory> {
 
     List<TbCategory> selectByBrandId(Long bid);
+
+    List<TbCategory> getList(List<Long> bids);
 }

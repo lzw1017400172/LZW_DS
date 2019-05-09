@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzw.item.mapper.TbSpuMapper">
+
+    <select id="selectPageByMap" resultType="com.lzw.item.pojo.TbSpu">
+        SELECT * FROM tb_spu
+        <where>
+            <if test="cm.titleL != null and cm.titleL != ''">
+                AND tb_spu.title LIKE CONCAT('%',#{cm.titleL},'%')
+            </if>
+            <if test="cm.saleable != null">
+                AND tb_spu.saleable = #{cm.saleable}
+            </if>
+        </where>
+    </select>
+</mapper>

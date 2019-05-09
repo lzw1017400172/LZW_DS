@@ -9,7 +9,7 @@
 	</parent>
 
 	<groupId>com.lzw</groupId>
-	<artifactId>eureka-Server</artifactId>
+	<artifactId>eureka-server</artifactId>
 	<packaging>jar</packaging>
 
 	<name>eureka-Server</name>

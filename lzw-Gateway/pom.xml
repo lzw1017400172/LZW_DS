@@ -11,7 +11,7 @@
 	<groupId>com.lzw</groupId>
 	<artifactId>lzw-gateway</artifactId>
 	<packaging>jar</packaging>
-	<name>lzw-Gateway</name>
+	<name>lzw-gateway</name>
 	<description>Demo project for Spring Boot</description>
 
 	<dependencies>

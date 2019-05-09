@@ -28,4 +28,9 @@ public class TbCategoryServiceImpl extends BaseServiceImpl<TbCategory> implement
     public List<TbCategory> selectByBrandId(Long bid) {
         return tbCategoryMapper.selectByBrandId(bid);
     }
+
+    @Override
+    public List<TbCategory> getList(List<Long> bids) {
+        return tbCategoryMapper.selectBatchIds(bids);
+    }
 }
