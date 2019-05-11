@@ -58,8 +58,7 @@ public class TbSpecController extends BaseController {
 		if(tbSpecification != null){
 			return setSuccessModelMap(modelMap,tbSpecification.getSpecifications());
 		} else {
-			return setSuccessModelMap(modelMap,"[]" +
-					"");
+			return setSuccessModelMap(modelMap,"[]");
 		}
 	}
 	

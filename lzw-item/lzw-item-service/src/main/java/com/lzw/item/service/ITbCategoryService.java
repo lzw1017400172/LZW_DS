@@ -18,4 +18,6 @@ public interface ITbCategoryService extends BaseService<TbCategory> {
     List<TbCategory> selectByBrandId(Long bid);
 
     List<TbCategory> getList(List<Long> bids);
+
+    List<String> queryNameByIds(List<Long> ids);
 }

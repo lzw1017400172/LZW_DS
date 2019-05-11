@@ -24,7 +24,7 @@ public class TbSpuDetail implements Serializable {
      * spu id
      */
     @TableField("spu_id")
-    private Long spu_id;
+    private Long spuId;
     /**
      * 商品描述信息
      */

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -32,5 +33,10 @@ public class TbCategoryServiceImpl extends BaseServiceImpl<TbCategory> implement
     @Override
     public List<TbCategory> getList(List<Long> bids) {
         return tbCategoryMapper.selectBatchIds(bids);
+    }
+
+    @Override
+    public List<String> queryNameByIds(List<Long> ids) {
+        return tbCategoryMapper.selectBatchIds(ids).stream().map(TbCategory::getName).collect(Collectors.toList());
     }
 }

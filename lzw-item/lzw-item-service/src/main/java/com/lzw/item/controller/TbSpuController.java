@@ -4,9 +4,7 @@ package com.lzw.item.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.lzw.core.base.BaseController;
 import com.lzw.item.dto.SpuBo;
-import com.lzw.item.pojo.TbBrand;
-import com.lzw.item.pojo.TbCategory;
-import com.lzw.item.pojo.TbSpu;
+import com.lzw.item.pojo.*;
 import com.lzw.item.service.ITbBrandService;
 import com.lzw.item.service.ITbCategoryService;
 import com.lzw.item.service.ITbSpuDetailService;
@@ -18,8 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -76,26 +73,32 @@ public class TbSpuController extends BaseController{
         return setSuccessModelMap(modelMap,pages2);
     }
 
-//    @ApiOperation(value = "添加or更新", notes = "添加or更新")
-//    @PostMapping
-//    public Object update(ModelMap modelMap, @RequestBody TbBrand tbBrand){
-//        if(tbBrand.getId() == null){
-//            Assert.length(tbBrand.getName(),1,50,"NAME");
-//            String initial = PinyinUtil.getPinYinHeadUperChar(tbBrand.getName());
-//            tbBrand.setLetter(initial.substring(0,1));
-//            tbBrandService.insertBrandAndCategory(tbBrand);
-//        } else {
-//            if(StringUtils.isNotBlank(tbBrand.getName())){
-//                String initial = PinyinUtil.getPinYinHeadUperChar(tbBrand.getName());
-//                tbBrand.setLetter(initial.substring(0,1));
-//            } else {
-//                tbBrand.setLetter(null);
-//            }
-//            tbBrandService.updateBrandAndCategory(tbBrand);
-//        }
-//        return setSuccessModelMap(modelMap,tbBrand);
-//    }
-//
+    @ApiOperation(value = "添加", notes = "添加")
+    @PostMapping
+    public Object insert(ModelMap modelMap, @RequestBody SpuBo spuBo){
+        //insert spu
+        TbSpu tbSpu = new TbSpu();
+        BeanUtils.copyProperties(spuBo,tbSpu);
+        tbSpu.setId(null);
+        tbSpu.setCreateTime(new Date());
+        tbSpu.setLastUpdateTime(new Date());
+        //insert spu_detail
+        TbSpuDetail tbSpuDetail = spuBo.getSpuDetail();
+        //insert sku
+        List<TbSku> skus = spuBo.getSkus();
+        tbSpuService.insertSpu(tbSpu,tbSpuDetail,skus);
+        return setSuccessModelMap(modelMap);
+    }
+
+    @ApiOperation(value = "", notes = "")
+    @GetMapping("/detail/{spuId}")
+    public Object detailSpuid(ModelMap modelMap, @PathVariable("spuId") Long spuId){
+        TbSpuDetail tbSpuDetail = new TbSpuDetail();
+        tbSpuDetail.setSpuId(spuId);
+        tbSpuDetail = tbSpuDetailService.selectOne(tbSpuDetail);
+        return setSuccessModelMap(modelMap,tbSpuDetail);
+    }
+
 //    @ApiOperation(value = "删除", notes = "删除")
 //    @DeleteMapping
 //    public Object delete(ModelMap modelMap, @RequestBody TbBrand tbBrand){

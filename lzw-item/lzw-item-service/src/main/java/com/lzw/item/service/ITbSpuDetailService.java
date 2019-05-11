@@ -11,5 +11,5 @@ import com.lzw.item.pojo.TbSpuDetail;
  * @since 2019-04-06
  */
 public interface ITbSpuDetailService extends BaseService<TbSpuDetail> {
-
+    TbSpuDetail selectOne(TbSpuDetail tbSpuDetail);
 }

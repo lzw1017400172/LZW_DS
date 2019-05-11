@@ -16,4 +16,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class TbSpuDetailServiceImpl extends BaseServiceImpl<TbSpuDetail> implements ITbSpuDetailService {
 
+    @Override
+    public TbSpuDetail selectOne(TbSpuDetail tbSpuDetail) {
+        return mapper.selectOne(tbSpuDetail);
+    }
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<artifactId>LZW_DS</artifactId>
+		<groupId>com.lzw</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.lzw.search</groupId>
+	<artifactId>lzw-search</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>lzw-search</name>
+	<description>Demo project for Spring Boot</description>
+
+	<dependencies>
+
+        <!--商品微服务-->
+        <dependency>
+            <groupId>com.lzw.service</groupId>
+            <artifactId>lzw-item-interface</artifactId>
+            <version>${lzw.latest.version}</version>
+        </dependency>
+
+
+		<!-- web -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!--elasticsearch-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+		</dependency>
+		<!--eureka-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<!--openfeign 基于注解-restful风格的服务通讯组件，通讯方式是http协议，没有dubbbo基于rpc-tcp协议实现的通讯更加基础。
+			feign主要功能 服务同步通信； 自带了一些功能 默认有rubbon负载均衡；hystrix 服务熔断(包括 开启/关闭服务熔断，服务降级，线程隔离和线程数量控制)
+			线程隔离我觉得基本上就是一个线程池的概念，对指定 服务的调用 指定 线程池，限制线程的使用。
+		-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+</project>

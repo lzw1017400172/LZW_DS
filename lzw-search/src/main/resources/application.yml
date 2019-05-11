@@ -1,0 +1,20 @@
+
+server:
+  port: 8710
+spring:
+  application:
+    name: search-service
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 192.168.0.101:9300
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
+    lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+    prefer-ip-address: true   #注册时使用ip，避免使用计算机名称无法通信
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port}

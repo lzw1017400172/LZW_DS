@@ -7,11 +7,14 @@ import com.lzw.item.service.ITbCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,5 +56,12 @@ public class TbCategoryController extends BaseController {
 		}
 	}
 
-
+	@GetMapping("/names")
+	public Object queryNameByIds(@RequestParam("ids") List<Long> ids){
+		List<String > list = this.tbCategoryService.queryNameByIds(ids);
+		if (list == null || list.size() < 1) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return ResponseEntity.ok(list);
+	}
 }
