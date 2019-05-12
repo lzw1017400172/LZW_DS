@@ -1,11 +1,12 @@
 package com.lzw.search.pojo;
 
-import org.elasticsearch.action.fieldstats.FieldStats;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import java.util.Map;
  * Created by LZW on 2019/5/11.
  */
 @Document(indexName = "goods", type = "docs", shards = 1, replicas = 0)
+@Data
 public class Goods {
     @Id
     private Long id; // spuId
@@ -27,7 +29,7 @@ public class Goods {
     private Long cid1;// 1级分类id
     private Long cid2;// 2级分类id
     private Long cid3;// 3级分类id
-    private FieldStats.Date createTime;// 创建时间
+    private Date createTime;// 创建时间
     private List<Long> price;// 价格
 
     @Field(type = FieldType.Keyword, index = false)

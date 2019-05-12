@@ -54,6 +54,12 @@ spring:
         - Path=/api/upload/**   #匹配/api/item开头的请求
         filters:
         - StripPrefix=1 #去除掉前面2个前缀 就是 /api/item/xxx  去掉/api/item
+      - id: search
+        uri:  lb://lzw-search    #以lb://开头（lb代表从注册中心获取服务）
+        predicates:
+        - Path=/search/**   #匹配/search开头的请求
+        filters:
+        - StripPrefix=1 #去除掉前面2个前缀 就是 /api/item/xxx  去掉/api/item
 
 eureka:
   client:

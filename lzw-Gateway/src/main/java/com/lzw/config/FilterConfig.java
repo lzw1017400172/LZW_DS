@@ -26,7 +26,8 @@ public class FilterConfig {
     //这里为支持的请求头，如果有自定义的header字段请自己添加（不知道为什么不能使用*）
     private static final String ALLOWED_HEADERS = "x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN,token,username,client";
     private static final String ALLOWED_METHODS = "*";
-    private static final String ALLOWED_ORIGIN = "http://manage.lzw.com:9001";
+    private static final String ALLOWED_ORIGIN1 = "http://manage.lzw.com:9001";
+    private static final String ALLOWED_ORIGIN2 = "http://www.lzw.com:8080";
     private static final String ALLOWED_Expose = "*";
     private static final String MAX_AGE = "18000L";
 
@@ -37,7 +38,8 @@ public class FilterConfig {
             if (CorsUtils.isCorsRequest(request)) {
                 ServerHttpResponse response = ctx.getResponse();
                 HttpHeaders headers = response.getHeaders();
-                headers.add("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
+                headers.add("Access-Control-Allow-Origin", ALLOWED_ORIGIN1);
+                headers.add("Access-Control-Allow-Origin", ALLOWED_ORIGIN2);
                 headers.add("Access-Control-Allow-Methods", ALLOWED_METHODS);
                 headers.add("Access-Control-Max-Age", MAX_AGE);
                 headers.add("Access-Control-Allow-Headers", ALLOWED_HEADERS);

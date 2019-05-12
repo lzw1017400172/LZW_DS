@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -73,6 +74,36 @@ public class TbSpuController extends BaseController{
         return setSuccessModelMap(modelMap,pages2);
     }
 
+    @ApiOperation(value = "分页查询", notes = "分页查询")
+    @GetMapping("/page")
+    public ResponseEntity<List<SpuBo>> query2(String key, Boolean saleable,
+                                 String pageNum, String pageSize, String orderBy, boolean openSort, boolean asc){
+        Map<String,Object> param = new HashMap<>();
+        param.put("titleL",key);
+        param.put("saleable",saleable);
+        param.put("pageNum",pageNum);
+        param.put("pageSize",pageSize);
+        param.put("orderBy",orderBy);
+        param.put("openSort",openSort);
+        param.put("asc",asc);
+        Page<TbSpu> pages = tbSpuService.query(param);
+        Page<SpuBo> pages2 = new Page<>();
+        BeanUtils.copyProperties(pages, pages2);
+        List<SpuBo> list = new ArrayList<>();
+        for(TbSpu spu:pages.getRecords()){
+            SpuBo spuBo = new SpuBo();
+            BeanUtils.copyProperties(spu, spuBo);
+            TbBrand tbBrand = tbBrandService.queryById(spu.getBrandId());
+            if(tbBrand != null){
+                spuBo.setBname(tbBrand.getName());
+            }
+            List<String> categories = tbCategoryService.getList(Arrays.asList(spu.getCid1(),spu.getCid2(),spu.getCid3())).stream().map(TbCategory::getName).collect(Collectors.toList());
+            spuBo.setCname(StringUtils.join(categories,"/"));
+            list.add(spuBo);
+        }
+        return ResponseEntity.ok(list);
+    }
+
     @ApiOperation(value = "添加", notes = "添加")
     @PostMapping
     public Object insert(ModelMap modelMap, @RequestBody SpuBo spuBo){
@@ -91,13 +122,23 @@ public class TbSpuController extends BaseController{
     }
 
     @ApiOperation(value = "", notes = "")
-    @GetMapping("/detail/{spuId}")
-    public Object detailSpuid(ModelMap modelMap, @PathVariable("spuId") Long spuId){
+    @GetMapping("/detail/{id}")
+    public Object detailSpuid(ModelMap modelMap, @PathVariable("id") Long id){
         TbSpuDetail tbSpuDetail = new TbSpuDetail();
-        tbSpuDetail.setSpuId(spuId);
+        tbSpuDetail.setSpuId(id);
         tbSpuDetail = tbSpuDetailService.selectOne(tbSpuDetail);
         return setSuccessModelMap(modelMap,tbSpuDetail);
     }
+
+    @ApiOperation(value = "", notes = "")
+    @GetMapping("/detail2/{id}")
+    public ResponseEntity<TbSpuDetail> detailSpuid2(ModelMap modelMap, @PathVariable("id") Long id){
+        TbSpuDetail tbSpuDetail = new TbSpuDetail();
+        tbSpuDetail.setSpuId(id);
+        tbSpuDetail = tbSpuDetailService.selectOne(tbSpuDetail);
+        return ResponseEntity.ok(tbSpuDetail);
+    }
+
 
 //    @ApiOperation(value = "删除", notes = "删除")
 //    @DeleteMapping
