@@ -35,7 +35,7 @@ public class TbSpu implements Serializable {
     /**
      * 子标题
      */
-    @TableField("subTitle")
+    @TableField("sub_title")
     private String subTitle;
 
     /**

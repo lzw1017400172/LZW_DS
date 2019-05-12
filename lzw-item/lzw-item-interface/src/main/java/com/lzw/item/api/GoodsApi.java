@@ -3,6 +3,7 @@ package com.lzw.item.api;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.lzw.item.dto.SpuBo;
 import com.lzw.item.pojo.TbSku;
+import com.lzw.item.pojo.TbSpu;
 import com.lzw.item.pojo.TbSpuDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
@@ -40,6 +41,9 @@ public interface GoodsApi {
     @GetMapping("/spu/detail2/{id}")
     TbSpuDetail querySpuDetailById(@PathVariable("id") Long id);
 
+    @GetMapping("/spu/querySpuById/{spuId}")
+    TbSpu querySpuById(@PathVariable("spuId") Long spuId);
+
     /**
      * 根据spu的id查询sku
      * @param id
@@ -47,4 +51,5 @@ public interface GoodsApi {
      */
     @GetMapping("/sku/list2")
     List<TbSku> querySkuBySpuId(@RequestParam("id") Long id);
+
 }

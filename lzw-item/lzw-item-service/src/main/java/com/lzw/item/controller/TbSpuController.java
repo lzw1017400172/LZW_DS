@@ -139,6 +139,12 @@ public class TbSpuController extends BaseController{
         return ResponseEntity.ok(tbSpuDetail);
     }
 
+    @ApiOperation(value = "", notes = "")
+    @GetMapping("/querySpuById/{spuId}")
+    public ResponseEntity<TbSpu> querySpuById(@PathVariable("spuId") Long spuId){
+        TbSpu tbSpu = tbSpuService.queryById(spuId);
+        return ResponseEntity.ok(tbSpu);
+    }
 
 //    @ApiOperation(value = "删除", notes = "删除")
 //    @DeleteMapping
